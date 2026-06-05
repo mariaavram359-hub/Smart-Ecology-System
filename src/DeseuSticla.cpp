@@ -36,6 +36,8 @@ float DeseuSticla::calculeaza_amprenta_carbon() const {
 }
 
 void DeseuSticla::afiseaza_impl(std::ostream& os) const {
+    os << " -> Culoare sticla: " << culoare_to_string() << "\n";
+    os << " -> Stare: " << (get_este_sparta() ? "Sparta (Cioburi)" : "Intreaga") << "\n";
     os << " -> Timp estimat descompunere: " << timp_descompunere_ani() << " ani (practic infinit).\n";
     os << " -> Amprenta de carbon generata: " << calculeaza_amprenta_carbon() << " kg CO2.";
 }

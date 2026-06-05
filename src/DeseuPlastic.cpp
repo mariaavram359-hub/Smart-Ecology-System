@@ -20,10 +20,11 @@ std::string DeseuPlastic::get_tip() const {
 }
 
 void DeseuPlastic::afiseaza_impl(std::ostream& os) const {
+    os << " -> Tip plastic: " << tip_plastic_to_string() << "\n";
+    os << " -> Poate fi reciclat direct: " << (este_reciclabil() ? "DA" : "NU") << "\n";
     os << " -> Timp estimat descompunere: " << timp_descompunere_ani() << " ani.\n";
     os << " -> Amprenta de carbon generata: " << calculeaza_amprenta_carbon() << " kg CO2.";
 }
-
 std::string DeseuPlastic::genereaza_raport_ecologic() const {
     std::string raport;
     raport += "=== RAPORT ECOLOGIC - DESEU PLASTIC ===\n";
