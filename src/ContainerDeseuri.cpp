@@ -25,14 +25,7 @@ void ContainerDeseuri::adauga_deseuri(const Deseu& deseu_aruncat) {
     std::string tip_primit = deseu_aruncat.get_tip();
 
     if (in_mentenanta) {
-        throw std::runtime_error("Containerul " + std::to_string(id) +
-                                 " este in mentenanta si nu accepta deseuri momentan!");
-    }
-
-    if (cantitate_primita <= 0) {
-        throw EroareCantitateInvalida("Eroare Logica: Cantitatea de deseuri introdusa (" +
-                                      std::to_string(cantitate_primita) +
-                                      " kg) trebuie sa fie strict pozitiva!");
+        throw EroareMentenanta("Containerul " + std::to_string(id) + " este in mentenanta si nu accepta deseuri!");
     }
 
     if (tip_primit != tip_acceptat) {
@@ -41,21 +34,17 @@ void ContainerDeseuri::adauga_deseuri(const Deseu& deseu_aruncat) {
 
     float spatiu_ocupat = calculeaza_spatiu_ocupat(deseu_aruncat);
 
-    if (grad_umplere + cantitate_primita > capacitate_maxima) {
-        throw EroareSuprasolicitare("Eroare! Containerul " + std::to_string(id) + " a atins capacitatea maxima.");
+    if (grad_umplere + spatiu_ocupat > capacitate_maxima) {
+        throw EroareSuprasolicitare("Eroare! Containerul a atins capacitatea maxima.");
     }
 
-    grad_umplere += cantitate_primita;
-    std::cout << "[Sistem Trapa] Au fost adaugate " << deseu_aruncat.get_cantitate()
-    << " kg care ocupa " << spatiu_ocupat << " spatiu " << " de " << tip_primit << ".\n";
-    std::cout << deseu_aruncat << "\n";
+    grad_umplere += spatiu_ocupat;
+    std::cout << "[Sistem Trapa] Au fost adaugate " << cantitate_primita << " kg de " << tip_primit << ".\n";
 
     if (necesita_colectare()) {
-        std::cout << "\n[ATENTIE] Containerul " << id << " din " << locatie
-                  << " a depasit pragul de " << prag_colectare << "%!\n";
+        std::cout << "\n[ATENTIE] Containerul " << id << " a depasit pragul de " << prag_colectare << "%!\n";
         float colectat = goleste();
-        std::cout << "[AUTO] Masina de gunoi a fost trimisa automat! "
-                  << "Au fost colectate " << colectat << " kg.\n\n";
+        std::cout << "[AUTO] Masina de gunoi a fost trimisa automat! Colectat " << colectat << " kg.\n";
     }
 }
 

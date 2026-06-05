@@ -25,16 +25,14 @@ public:
     }
 };
 
-class EroareCantitateInvalida : public std::exception {
-private:
-    std::string mesaj;
+class EroareCantitateInvalida : public std::invalid_argument {
 public:
-    explicit EroareCantitateInvalida(const std::string& msg)
-    : mesaj(msg) {}
+    explicit EroareCantitateInvalida(const std::string& msg) : std::invalid_argument(msg) {}
+};
 
-    [[nodiscard]] const char* what() const noexcept override {
-        return mesaj.c_str();
-    }
+class EroareMentenanta : public std::runtime_error {
+public:
+    explicit EroareMentenanta(const std::string& msg) : std::runtime_error(msg) {}
 };
 
 
