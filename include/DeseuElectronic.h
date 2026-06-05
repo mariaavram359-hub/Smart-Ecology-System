@@ -9,9 +9,11 @@
 #include "Deseu.h"
 
 class DeseuElectronic : public Deseu {
+private:
+    bool contine_baterie;
     public:
 
-    explicit DeseuElectronic(float cantitate_electric);
+    explicit DeseuElectronic(float cantitate_electric, bool are_bateria);
 
     [[nodiscard]] int timp_descompunere_ani() const override;
     [[nodiscard]] std::string get_tip() const override;

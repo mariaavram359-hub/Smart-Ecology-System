@@ -4,9 +4,8 @@
 #include <iostream>
 #include "DeseuPlastic.h"
 
-DeseuPlastic::DeseuPlastic(float cantitate_plastic)
-    : Deseu(cantitate_plastic){
-}
+DeseuPlastic::DeseuPlastic(const float cantitate_plastic, const TipPlastic tip)
+    : Deseu(cantitate_plastic), tip_plastic(tip) {}
 
 int DeseuPlastic::timp_descompunere_ani() const {
     return 500;
@@ -55,4 +54,23 @@ std::string DeseuPlastic::genereaza_raport_ecologic() const {
     raport += "  3. Reducere volum prin compactare (economie 60% spatiu transport).\n";
     raport += "=======================================\n";
     return raport;
+}
+
+bool DeseuPlastic::este_reciclabil() const {
+    return (tip_plastic == TipPlastic::PET ||
+            tip_plastic == TipPlastic::HDPE ||
+            tip_plastic == TipPlastic::LDPE ||
+            tip_plastic == TipPlastic::PP);
+}
+
+std::string DeseuPlastic::tip_plastic_to_string() const {
+    switch (tip_plastic) {
+        case TipPlastic::PET: return "PET";
+        case TipPlastic::HDPE: return "HDPE";
+        case TipPlastic::PVC: return "PVC";
+        case TipPlastic::LDPE: return "LDPE";
+        case TipPlastic::PP: return "PP";
+        case TipPlastic::PS: return "PS";
+        default: return "Altele";
+    }
 }

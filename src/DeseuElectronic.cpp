@@ -4,9 +4,8 @@
 #include <iostream>
 #include "DeseuElectronic.h"
 
-DeseuElectronic::DeseuElectronic(float cantitate_electric)
-    :Deseu(cantitate_electric){
-}
+DeseuElectronic::DeseuElectronic(float cantitate_electric, bool are_baterie)
+    : Deseu(cantitate_electric), contine_baterie(are_baterie) {}
 
 int DeseuElectronic::timp_descompunere_ani() const {
     return 1000;
@@ -18,16 +17,19 @@ std::string DeseuElectronic::get_tip() const {
 
 
 float DeseuElectronic::calculeaza_amprenta_carbon() const {
-    return cantitate * 25.0f;
+    float amprenta_baza = cantitate * 15.5f;
+    if (contine_baterie) {
+        amprenta_baza += (cantitate * 50.0f); // Bateriile de litiu sunt extrem de poluante
+    }
+    return amprenta_baza;
 }
-
 void DeseuElectronic::afiseaza_impl(std::ostream& os) const {
     os << " -> Timp estimat descompunere: " << timp_descompunere_ani() << " ani.\n";
     os << " -> Amprenta de carbon generata: " << calculeaza_amprenta_carbon() << " kg CO2.";
 }
 
 std::string DeseuElectronic::genereaza_raport_ecologic() const {
-    std::string raport = "";
+    std::string raport;
     raport += "=== RAPORT ECOLOGIC - DESEU ELECTRONIC ===\n";
     raport += "Cantitate: " + std::to_string(cantitate) + " kg\n";
     raport += "Timp de descompunere: " + std::to_string(timp_descompunere_ani()) + " ani\n";
@@ -55,5 +57,11 @@ std::string DeseuElectronic::genereaza_raport_ecologic() const {
     raport += "  3. Reciclare componente reutilizabile (baterii, circuite).\n";
     raport += "  4. Certificat de distrugere date pentru dispozitive cu stocare.\n";
     raport += "===========================================\n";
+
+    if (contine_baterie) {
+        raport += "ATENTIE: Risc de scurgeri toxice din baterie!\n";
+    } else {
+        raport += "Poate fi reciclat pentru metale rare.\n";
+    }
     return raport;
 }

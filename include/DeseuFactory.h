@@ -13,13 +13,13 @@ class DeseuFactory {
 public:
     static Deseu* creeaza(const std::string& tip, float cantitate) {
         if (tip == "Plastic")
-            return new DeseuPlastic(cantitate);
+            return new DeseuPlastic(cantitate, TipPlastic::PET);
         if (tip == "Biologic")
-            return new DeseuBiologic(cantitate);
+            return new DeseuBiologic(cantitate, true);
         if (tip == "Electronice")
-            return new DeseuElectronic(cantitate);
+            return new DeseuElectronic(cantitate, false);
         if (tip == "Sticla")
-            return new DeseuSticla(cantitate);
+            return new DeseuSticla(cantitate, CuloareSticla::TRANSPARENTA, false);
 
         throw std::invalid_argument("Tip de deseu necunoscut: " + tip);
     }

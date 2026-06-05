@@ -64,11 +64,11 @@ int main() {
     c_sticla->set_prag_colectare(65.0f);
 
     try {
-        *c_plastic += DeseuPlastic(50.0f);
-        *c_bio += DeseuBiologic(100.0f);
-        *c_electric += DeseuElectronic(10.0f);
-        *c_plastic += DeseuElectronic(5.0f);
-        *c_sticla += DeseuSticla(15.0f);
+        *c_plastic += DeseuPlastic(50.0f, TipPlastic::PET);
+        *c_bio += DeseuBiologic(100.0f, true);
+        *c_electric += DeseuElectronic(10.0f, false);
+        *c_plastic += DeseuElectronic(5.0f, true);
+        *c_sticla += DeseuSticla(15.0f, CuloareSticla::VERDE, false);
 
     } catch (const EroareTipDeseu& eroare) {
         std::cerr << "[DEMO EROARE] " << eroare.what() << "\n\n";

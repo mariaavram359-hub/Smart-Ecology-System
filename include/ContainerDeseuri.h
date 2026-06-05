@@ -45,7 +45,7 @@ public:
 protected:
     std::string tip_acceptat;
     virtual void afiseaza_impl() const = 0;
-
+    virtual float calculeaza_spatiu_ocupat(const Deseu& deseu) const;
 };
 
 #endif //OOP_CONTAINERDESEURI_H

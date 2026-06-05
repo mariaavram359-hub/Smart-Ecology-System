@@ -39,12 +39,15 @@ void ContainerDeseuri::adauga_deseuri(const Deseu& deseu_aruncat) {
         throw EroareTipDeseu("Trapa blocata! Nu puteti arunca [" + tip_primit + "] intr-un container pentru [" + tip_acceptat + "].");
     }
 
+    float spatiu_ocupat = calculeaza_spatiu_ocupat(deseu_aruncat);
+
     if (grad_umplere + cantitate_primita > capacitate_maxima) {
         throw EroareSuprasolicitare("Eroare! Containerul " + std::to_string(id) + " a atins capacitatea maxima.");
     }
 
     grad_umplere += cantitate_primita;
-    std::cout << "[Sistem Trapa] Au fost adaugate " << cantitate_primita << " kg de " << tip_primit << ".\n";
+    std::cout << "[Sistem Trapa] Au fost adaugate " << deseu_aruncat.get_cantitate()
+    << " kg care ocupa " << spatiu_ocupat << " spatiu " << " de " << tip_primit << ".\n";
     std::cout << deseu_aruncat << "\n";
 
     if (necesita_colectare()) {
@@ -114,4 +117,8 @@ void ContainerDeseuri::scoate_din_mentenanta() {
 
 int ContainerDeseuri::get_id() const {
     return id;
+}
+
+float ContainerDeseuri::calculeaza_spatiu_ocupat(const Deseu& deseu) const {
+    return deseu.get_cantitate();
 }

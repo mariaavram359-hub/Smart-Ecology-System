@@ -9,9 +9,11 @@
 #include "Deseu.h"
 
 class DeseuBiologic : public Deseu {
+private:
+    bool este_compostabil;
 public:
 
-    explicit DeseuBiologic(float cantitate_bio);
+    explicit DeseuBiologic(float cantitate_bio, bool compostabil);
 
     [[nodiscard]] int timp_descompunere_ani() const override;
     [[nodiscard]] float calculeaza_amprenta_carbon() const override;

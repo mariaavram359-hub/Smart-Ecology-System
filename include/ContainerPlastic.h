@@ -18,7 +18,7 @@ public:
     [[nodiscard]] ContainerDeseuri* clone() const override;
 
 protected:
-
+    float calculeaza_spatiu_ocupat(const Deseu& deseu) const override;
     void afiseaza_impl() const override;
 };
 

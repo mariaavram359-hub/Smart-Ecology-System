@@ -1,7 +1,8 @@
 #include "DeseuSticla.h"
 #include <iostream>
 
-DeseuSticla::DeseuSticla(float cantitate_sticla) : Deseu(cantitate_sticla) {}
+DeseuSticla::DeseuSticla(float cantitate_sticla, CuloareSticla cul, bool sparta)
+    : Deseu(cantitate_sticla), culoare(cul), este_sparta(sparta) {}
 
 int DeseuSticla::timp_descompunere_ani() const {
     return 4000;
@@ -11,8 +12,27 @@ std::string DeseuSticla::get_tip() const {
     return "Sticla";
 }
 
+bool DeseuSticla::get_este_sparta() const {
+    return este_sparta;
+}
+
+std::string DeseuSticla::culoare_to_string() const {
+    switch (culoare) {
+        case CuloareSticla::TRANSPARENTA: return "Transparenta";
+        case CuloareSticla::VERDE: return "Verde";
+        case CuloareSticla::MARO: return "Maro";
+        case CuloareSticla::MIXTA: return "Mixta (Sortare dificila)";
+        default: return "Necunoscuta";
+    }
+}
+
 float DeseuSticla::calculeaza_amprenta_carbon() const {
-    return cantitate * 1.2f; 
+    float baza = cantitate * 1.2f;
+    // Daca sticla e mixta, masinariile de sortare optica consuma mai multa energie
+    if (culoare == CuloareSticla::MIXTA) {
+        baza += (cantitate * 0.5f);
+    }
+    return baza;
 }
 
 void DeseuSticla::afiseaza_impl(std::ostream& os) const {

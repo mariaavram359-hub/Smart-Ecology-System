@@ -15,3 +15,10 @@ ContainerDeseuri * ContainerPlastic::clone() const {
 void ContainerPlastic::afiseaza_impl() const {
     std::cout << "[Specific Plastic] Eficienta compactor: " << eficienta_compactor << "%\n";
 }
+
+float ContainerPlastic::calculeaza_spatiu_ocupat(const Deseu& deseu) const {
+    if (eficienta_compactor > 0) {
+        return deseu.get_cantitate() / eficienta_compactor;
+    }
+    return deseu.get_cantitate();
+}

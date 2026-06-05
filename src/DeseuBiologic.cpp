@@ -4,12 +4,11 @@
 #include <iostream>
 #include "../include/DeseuBiologic.h"
 
-DeseuBiologic::DeseuBiologic(float cantitate_bio)
-    : Deseu(cantitate_bio){
-}
+DeseuBiologic::DeseuBiologic(float cantitate_bio, bool compostabil)
+    : Deseu(cantitate_bio), este_compostabil(compostabil) {}
 
 int DeseuBiologic::timp_descompunere_ani() const {
-    return 1;
+    return este_compostabil ? 1 : 3;
 }
 
 float DeseuBiologic::calculeaza_amprenta_carbon() const {
@@ -52,6 +51,14 @@ std::string DeseuBiologic::genereaza_raport_ecologic() const {
     raport += "  2. Digestie anaeroba pentru producere biogaz.\n";
     raport += "  3. Valorificare energetica prin ardere controlata.\n";
     raport += "=========================================\n";
+
+    if (este_compostabil) {
+        raport += "Impact pozitiv. Poate fi transformat in ingrasamant natural.\n";
+    }
+    else {
+        raport += "Impact neutru. Necesita procesare in instalatii de biogaz.\n";
+    }
     return raport;
 }
+
 
