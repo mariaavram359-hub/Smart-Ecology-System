@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "ContainerDeseuri.h"
+#include "Istoric.h"
 
 class StatieSortare {
 private:
@@ -12,6 +13,7 @@ private:
     static float total_reciclat;
 
     static float goleste_container(ContainerDeseuri* container) ;
+    Istoric<std::string> jurnal_evenimente;
 
 public:
     StatieSortare() = default;
@@ -27,7 +29,7 @@ public:
     void mentenanta_rutina() const;
     void sorteaza_dupa_umplere();
     void afiseaza_rezumat() const;
-    void colecteaza_tot_gunoiul() const;
+    void colecteaza_tot_gunoiul();
     void colectare_automata() const;
     void afiseaza_raport_complet() const;
 

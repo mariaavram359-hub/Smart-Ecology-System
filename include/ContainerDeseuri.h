@@ -5,6 +5,7 @@
 #pragma once
 #include <iostream>
 #include "Deseu.h"
+#include "Istoric.h"
 
 class ContainerDeseuri {
 protected:
@@ -17,6 +18,7 @@ protected:
     int numar_colectari = 0;
     int prag_mentenanta = 3;
     bool in_mentenanta = false;
+    Istoric<float> istoric_cantitati;
 
 public:
     ContainerDeseuri(int id_container, std::string locatie_container, float capacitate_maxima_container);

@@ -76,6 +76,9 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         src/DeseuSticla.cpp
         include/ContainerSticla.h
         src/ContainerSticla.cpp
+        include/Logger.h
+        src/Logger.cpp
+        include/Istoric.h
 )
 #target_sources(${MAIN_EXECUTABLE_NAME}
 #    PRIVATE

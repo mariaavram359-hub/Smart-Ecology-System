@@ -14,6 +14,7 @@ void ContainerDeseuri::afiseaza() const {
     std::cout << "ID: " << id << "\n";
     std::cout << "Locatie: " << locatie << "\n";
     std::cout << "Grad de umplere: " << grad_umplere << " / " << capacitate_maxima << " kg\n";
+    istoric_cantitati.afiseaza("Istoric greutati adaugate");
 
     afiseaza_impl();
 
@@ -35,10 +36,11 @@ void ContainerDeseuri::adauga_deseuri(const Deseu& deseu_aruncat) {
     float spatiu_ocupat = calculeaza_spatiu_ocupat(deseu_aruncat);
 
     if (grad_umplere + spatiu_ocupat > capacitate_maxima) {
-        throw EroareSuprasolicitare("Eroare! Containerul a atins capacitatea maxima.");
+        throw EroareSuprasolicitare<int>("Containerul a depasit capacitatea maxima!", this->id);
     }
 
     grad_umplere += spatiu_ocupat;
+    istoric_cantitati.adauga(deseu_aruncat.get_cantitate());
     std::cout << "[Sistem Trapa] Au fost adaugate " << cantitate_primita << " kg de " << tip_primit << ".\n";
 
     if (necesita_colectare()) {

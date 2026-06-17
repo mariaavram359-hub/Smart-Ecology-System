@@ -2,6 +2,7 @@
 // Created by lenovo on 21.05.2026.
 //
 #include <iostream>
+#include <string>
 #include "DeseuPlastic.h"
 
 DeseuPlastic::DeseuPlastic(const float cantitate_plastic, const TipPlastic tip)

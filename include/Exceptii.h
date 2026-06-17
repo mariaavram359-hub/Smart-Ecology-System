@@ -10,12 +10,36 @@
 #include <stdexcept>
 
 
+#include <iostream>
+
+template <typename T>
+class EroareSuprasolicitare;
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const EroareSuprasolicitare<T>& eroare);
+
+template <typename T>
 class EroareSuprasolicitare : public std::runtime_error {
+private:
+    T info_suplimentar;
+
 public:
-   explicit EroareSuprasolicitare(const std::string& msg)
-       : std::runtime_error(msg) {
-   }
+    EroareSuprasolicitare(const std::string& msg, T info)
+        : std::runtime_error(msg), info_suplimentar(info) {}
+
+    T get_info_suplimentar() const {
+        return info_suplimentar;
+    }
+
+    friend std::ostream& operator<< <T>(std::ostream& os, const EroareSuprasolicitare<T>& eroare);
 };
+
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const EroareSuprasolicitare<T>& eroare) {
+    os << eroare.what() << " [Detalii eroare: " << eroare.info_suplimentar << "]";
+    return os;
+}
 
 class EroareTipDeseu : public std::runtime_error {
 public:

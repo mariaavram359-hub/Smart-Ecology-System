@@ -66,13 +66,14 @@ void StatieSortare::sorteaza_dupa_umplere() {
     std::cout << "\n[Sistem Optimizare] Flota a fost sortata: Masina va merge intai la cele mai pline containere.\n";
 }
 
-void StatieSortare::colecteaza_tot_gunoiul() const {
+void StatieSortare::colecteaza_tot_gunoiul() {
     std::cout << "\n--- TRIMITERE MASINA DE GUNOI ---\n";
     float cantitate_tura_curenta = 0.0f;
     for (ContainerDeseuri* container : flota_containere)
         cantitate_tura_curenta += goleste_container(container);
     std::cout << "[Sistem] Masina a colectat " << cantitate_tura_curenta << " kg in aceasta tura.\n";
     std::cout << "--- COLECTARE FINALIZATA ---\n\n";
+    jurnal_evenimente.adauga("Colectare totala initiata pentru toata flota.");
 }
 
 void StatieSortare::colectare_automata() const {
@@ -201,6 +202,6 @@ void StatieSortare::afiseaza_raport_complet() const {
     std::cout << "\n--- Detalii containere ---\n";
     for (const ContainerDeseuri* container : flota_containere)
         std::cout << *container << "\n";
-
+    jurnal_evenimente.afiseaza("Jurnal Statie Sortare");
     std::cout << "========================================\n";
 }

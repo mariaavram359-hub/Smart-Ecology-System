@@ -10,7 +10,9 @@
 #include <iostream>
 #include "include/ContainerSticla.h"
 #include "include/DeseuSticla.h"
-
+#include "Logger.h"
+#include <memory>
+#include <sstream>
 
 bool autentifica_admin() {
     const std::string parola_corecta = "admin123";
@@ -22,16 +24,16 @@ bool autentifica_admin() {
         std::cin >> parola_introdusa;
 
         if (parola_introdusa == parola_corecta) {
-            std::cout << "[Sistem] Autentificare reusita!\n";
+            Logger::get_instance().success("Autentificare reusita!");
             return true;
         }
 
         incercari--;
         if (incercari > 0)
-            std::cout << "[Sistem] Parola gresita! Mai aveti " << incercari << " incercari.\n";
+            Logger::get_instance().warning("Parola gresita! Mai aveti " + std::to_string(incercari) + " incercari.");
     }
 
-    std::cout << "[Sistem] Prea multe incercari gresite. Acces blocat!\n";
+    Logger::get_instance().error("Prea multe incercari gresite. Acces blocat!");
     return false;
 }
 
@@ -71,11 +73,13 @@ int main() {
         *c_sticla += DeseuSticla(15.0f, CuloareSticla::VERDE, false);
 
     } catch (const EroareTipDeseu& eroare) {
-        std::cerr << "[DEMO EROARE] " << eroare.what() << "\n\n";
-    } catch (const EroareSuprasolicitare& eroare) {
-        std::cerr << "[DEMO ALERTA] " << eroare.what() << "\n\n";
+        Logger::get_instance().error(eroare.what());
+    } catch (const EroareSuprasolicitare<int>& eroare) {
+        std::stringstream ss;
+        ss << eroare;
+        Logger::get_instance().error(ss.str());
     } catch (const std::exception& eroare) {
-        std::cerr << "[DEMO ALERTA GENERALA] " << eroare.what() << "\n\n";
+        Logger::get_instance().error(eroare.what());
     }
 
     statia_centrala.colecteaza_tot_gunoiul();
@@ -152,15 +156,15 @@ int main() {
                             std::string tip;
                             std::cin >> tip;
 
-                            Deseu* deseu = DeseuFactory::creeaza(tip, cantitate);
-                            std::cout << deseu->genereaza_raport_ecologic();
+                            std::unique_ptr<Deseu> deseu(DeseuFactory::creeaza(tip, cantitate));
                             *(statia_sector_2[index]) += *deseu;
-                            delete deseu;
+
+                            std::cout << deseu->genereaza_raport_ecologic();
 
                             statia_sector_2.colectare_automata();
 
                         } catch (const std::exception& e) {
-                            std::cerr << "\n[ACTIUNE RESPINSA] " << e.what() << "\n";
+                            Logger::get_instance().error("ACTIUNE RESPINSA: " + std::string(e.what()));
                         }
                         break;
                     }

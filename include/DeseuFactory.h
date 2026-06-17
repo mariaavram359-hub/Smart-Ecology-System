@@ -8,6 +8,7 @@
 #include "DeseuSticla.h"
 #include <string>
 #include <stdexcept>
+#include "Logger.h"
 
 class DeseuFactory {
 public:
@@ -20,6 +21,8 @@ public:
             return new DeseuElectronic(cantitate, false);
         if (tip == "Sticla")
             return new DeseuSticla(cantitate, CuloareSticla::TRANSPARENTA, false);
+
+        Logger::get_instance().error("S-a incercat crearea unui tip de deseu necunoscut: " + tip);
 
         throw std::invalid_argument("Tip de deseu necunoscut: " + tip);
     }

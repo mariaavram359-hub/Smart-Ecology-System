@@ -1,5 +1,6 @@
 #include "DeseuSticla.h"
 #include <iostream>
+#include <string>
 
 DeseuSticla::DeseuSticla(float cantitate_sticla, CuloareSticla cul, bool sparta)
     : Deseu(cantitate_sticla), culoare(cul), este_sparta(sparta) {}
