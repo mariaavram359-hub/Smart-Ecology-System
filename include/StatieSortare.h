@@ -6,6 +6,7 @@
 #include <string>
 #include "ContainerDeseuri.h"
 #include "Istoric.h"
+#include "StrategieSortare.h"
 
 class StatieSortare {
 private:
@@ -27,11 +28,11 @@ public:
 
     void adaugaContainer(ContainerDeseuri* container);
     void mentenanta_rutina() const;
-    void sorteaza_dupa_umplere();
     void afiseaza_rezumat() const;
     void colecteaza_tot_gunoiul();
     void colectare_automata() const;
     void afiseaza_raport_complet() const;
+    void executa_sortare(const StrategieSortare& strategie);
 
     [[nodiscard]] ContainerDeseuri* cauta_dupa_id(int id) const;
     [[nodiscard]] int numar_containere_critice() const;

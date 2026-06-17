@@ -202,10 +202,33 @@ int main() {
                     case 1:
                         statia_sector_2.mentenanta_rutina();
                         break;
-                    case 2:
-                        statia_sector_2.sorteaza_dupa_umplere();
+                    case 2: {
+                        std::cout << "\nAlegeti criteriul de sortare:\n";
+                        std::cout << "1. Dupa gradul de umplere (Descrescator)\n";
+                        std::cout << "2. Dupa ID (Crescator)\n";
+                        std::cout << "Alegere: ";
+                        int crit;
+                        if (!(std::cin >> crit)) {
+                            curata_cin();
+                            break;
+                        }
+
+                        if (crit == 1) {
+                            SortareDupaUmplere strategie_umplere;
+                            statia_sector_2.executa_sortare(strategie_umplere);
+                            Logger::get_instance().success("Flota a fost sortata dupa gradul de umplere!");
+                        } else if (crit == 2) {
+                            SortareDupaID strategie_id;
+                            statia_sector_2.executa_sortare(strategie_id);
+                            Logger::get_instance().success("Flota a fost sortata dupa ID!");
+                        } else {
+                            std::cout << "Criteriu invalid.\n";
+                        }
+
+                        // Afișăm rezultatul sortării
                         statia_sector_2.afiseaza_rezumat();
                         break;
+                    }
                     case 3:
                         statia_sector_2.afiseaza_raport_complet();
                         break;

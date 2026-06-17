@@ -58,12 +58,9 @@ void StatieSortare::mentenanta_rutina() const {
     std::cout << "--- RUTINA FINALIZATA ---\n";
 }
 
-void StatieSortare::sorteaza_dupa_umplere() {
-    std::ranges::sort(flota_containere,
-        [](const ContainerDeseuri* a, const ContainerDeseuri* b) {
-            return a->get_grad_umplere() > b->get_grad_umplere();
-        });
-    std::cout << "\n[Sistem Optimizare] Flota a fost sortata: Masina va merge intai la cele mai pline containere.\n";
+void StatieSortare::executa_sortare(const StrategieSortare& strategie) {
+    // Delegăm algoritmul de sortare către obiectul strategie!
+    strategie.sorteaza(this->flota_containere);
 }
 
 void StatieSortare::colecteaza_tot_gunoiul() {

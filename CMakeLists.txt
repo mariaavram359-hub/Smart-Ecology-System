@@ -79,6 +79,7 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         include/Logger.h
         src/Logger.cpp
         include/Istoric.h
+        include/StrategieSortare.h
 )
 #target_sources(${MAIN_EXECUTABLE_NAME}
 #    PRIVATE
