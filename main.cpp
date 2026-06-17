@@ -14,6 +14,12 @@
 #include <memory>
 #include <sstream>
 
+
+template <typename T>
+T compara_maxim(const T& val1, const T& val2) {
+    return (val1 > val2) ? val1 : val2;
+}
+
 bool autentifica_admin() {
     const std::string parola_corecta = "admin123";
     std::string parola_introdusa;
@@ -65,19 +71,40 @@ int main() {
     c_electric->set_prag_colectare(60.0f);
     c_sticla->set_prag_colectare(65.0f);
 
+    // --- DEMONSTRAȚIE FUNCȚIE ȘABLON (Minim 2 instanțieri) ---
+    float max_cap = compara_maxim<float>(c_plastic->get_capacitate(), c_bio->get_capacitate());
+    Logger::get_instance().info("Capacitatea maxima comparata (float): " + std::to_string(max_cap));
+
+    int max_id = compara_maxim<int>(c_plastic->get_id(), c_bio->get_id());
+    Logger::get_instance().info("ID-ul maxim comparat (int): " + std::to_string(max_id) + "\n");
+    // ---------------------------------------------------------
+
     try {
         *c_plastic += DeseuPlastic(50.0f, TipPlastic::PET);
         *c_bio += DeseuBiologic(100.0f, true);
         *c_electric += DeseuElectronic(10.0f, false);
-        *c_plastic += DeseuElectronic(5.0f, true);
-        *c_sticla += DeseuSticla(15.0f, CuloareSticla::VERDE, false);
 
-    } catch (const EroareTipDeseu& eroare) {
-        Logger::get_instance().error(eroare.what());
+        // --- DEMONSTRAȚIE CLASĂ ȘABLON: Instanțierea 1 (int) ---
+        // Simulăm o eroare legată de ID-ul containerului
+        throw EroareSuprasolicitare<int>("Senzor defect la containerul cu ID-ul", c_plastic->get_id());
+
     } catch (const EroareSuprasolicitare<int>& eroare) {
         std::stringstream ss;
         ss << eroare;
-        Logger::get_instance().error(ss.str());
+        Logger::get_instance().error("[Exceptie Template 1] " + ss.str());
+
+        // --- DEMONSTRAȚIE CLASĂ ȘABLON: Instanțierea 2 (std::string) ---
+        // După ce am demonstrat prima eroare, o aruncăm și o prindem pe a doua legată de locație
+        try {
+             throw EroareSuprasolicitare<std::string>("Trafic blocat in locatia", c_bio->get_locatie());
+        } catch (const EroareSuprasolicitare<std::string>& eroare_str) {
+             std::stringstream ss_str;
+             ss_str << eroare_str;
+             Logger::get_instance().error("[Exceptie Template 2] " + ss_str.str());
+        }
+
+    } catch (const EroareTipDeseu& eroare) {
+        Logger::get_instance().error(eroare.what());
     } catch (const std::exception& eroare) {
         Logger::get_instance().error(eroare.what());
     }
@@ -225,7 +252,6 @@ int main() {
                             std::cout << "Criteriu invalid.\n";
                         }
 
-                        // Afișăm rezultatul sortării
                         statia_sector_2.afiseaza_rezumat();
                         break;
                     }

@@ -44,6 +44,14 @@ public:
 
     [[nodiscard]] int get_id() const;
 
+    float get_capacitate() const {
+        return capacitate_maxima;
+    }
+
+    std::string get_locatie() const {
+        return locatie;
+    }
+
 protected:
     std::string tip_acceptat;
     virtual void afiseaza_impl() const = 0;
