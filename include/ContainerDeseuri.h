@@ -37,6 +37,9 @@ public:
     [[nodiscard]] float get_grad_umplere() const;
     [[nodiscard]] float get_capacitate_maxima() const;
     void set_prag_colectare(float prag);
+    float get_prag_colectare() const {
+        return prag_colectare;
+    }
     [[nodiscard]] bool necesita_colectare() const;
 
     [[nodiscard]] bool este_in_mentenanta() const;

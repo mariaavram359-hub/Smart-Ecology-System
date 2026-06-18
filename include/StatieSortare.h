@@ -40,7 +40,6 @@ public:
     [[nodiscard]] bool exista_containere_in_mentenanta() const;
     [[nodiscard]] float calculeaza_scor_sustenabilitate() const;
 
-    static void afiseaza_statistici();
     static std::string interpreteaza_scor(float scor);
 };
 

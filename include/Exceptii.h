@@ -37,7 +37,7 @@ public:
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const EroareSuprasolicitare<T>& eroare) {
-    os << eroare.what() << " [Detalii eroare: " << eroare.info_suplimentar << "]";
+    os << eroare.what() << " : " << eroare.info_suplimentar;
     return os;
 }
 

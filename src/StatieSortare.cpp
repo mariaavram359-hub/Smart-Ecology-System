@@ -6,6 +6,7 @@
 #include <utility>
 #include <numeric>
 #include <algorithm>
+#include "Logger.h"
 
 float StatieSortare::total_reciclat = 0.0f;
 
@@ -74,18 +75,27 @@ void StatieSortare::colecteaza_tot_gunoiul() {
 }
 
 void StatieSortare::colectare_automata() const {
-    std::cout << "\n--- VERIFICARE AUTOMATA CONTAINERE ---\n";
-    bool a_fost_colectat_ceva = false;
-    for (ContainerDeseuri* container : flota_containere) {
-        if (container->necesita_colectare()) {
-            float colectat = goleste_container(container);
-            std::cout << "[AUTO] Container depasit pragul! Au fost colectate " << colectat << " kg.\n";
-            a_fost_colectat_ceva = true;
+    bool s_a_colectat_ceva = false;
+
+    for (auto* container : flota_containere) {
+        // Dacă s-a atins sau depășit pragul setat
+        if (container->get_grad_umplere() >= container->get_prag_colectare() && container->get_grad_umplere() > 0) {
+
+            // Afișăm un mesaj frumos cu albastru/verde prin Logger înainte să îl golim
+            Logger::get_instance().info("[AUTO-COLECTARE] Masina de gunoi a golit containerul ID: " +
+                                        std::to_string(container->get_id()) +
+                                        " (Avea " + std::to_string(container->get_grad_umplere()) + " kg).");
+
+            // Aici apelezi metoda ta de golire (sau set_grad_umplere(0))
+            container->goleste(); // sau container->set_grad_umplere(0.0f);
+
+            s_a_colectat_ceva = true;
         }
     }
-    if (!a_fost_colectat_ceva)
-        std::cout << "[AUTO] Niciun container nu a atins pragul de colectare.\n";
-    std::cout << "--- VERIFICARE FINALIZATA ---\n";
+
+    if (s_a_colectat_ceva) {
+        Logger::get_instance().success("Traseul de colectare automata a fost finalizat cu succes!\n");
+    }
 }
 
 ContainerDeseuri* StatieSortare::operator[](size_t index) const {

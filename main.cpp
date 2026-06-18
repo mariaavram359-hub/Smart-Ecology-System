@@ -9,7 +9,7 @@
 #include "include/DeseuFactory.h"
 #include <iostream>
 #include "include/ContainerSticla.h"
-#include "include/DeseuSticla.h"
+// #include "include/DeseuSticla.h"
 #include "Logger.h"
 #include <memory>
 #include <sstream>
@@ -71,12 +71,11 @@ int main() {
     c_electric->set_prag_colectare(60.0f);
     c_sticla->set_prag_colectare(65.0f);
 
-    // --- DEMONSTRAȚIE FUNCȚIE ȘABLON (Minim 2 instanțieri) ---
-    float max_cap = compara_maxim<float>(c_plastic->get_capacitate(), c_bio->get_capacitate());
-    Logger::get_instance().info("Capacitatea maxima comparata (float): " + std::to_string(max_cap));
+    auto max_cap = compara_maxim<float>(c_plastic->get_capacitate(), c_bio->get_capacitate());
+    Logger::get_instance().info("Diagnostic: Capacitatea maxima alocata pe un container este " + std::to_string(max_cap) + " kg.");
 
     int max_id = compara_maxim<int>(c_plastic->get_id(), c_bio->get_id());
-    Logger::get_instance().info("ID-ul maxim comparat (int): " + std::to_string(max_id) + "\n");
+    Logger::get_instance().info("Diagnostic: Cel mai mare ID inregistrat in retea este " + std::to_string(max_id) + ".\n");
     // ---------------------------------------------------------
 
     try {
@@ -84,23 +83,18 @@ int main() {
         *c_bio += DeseuBiologic(100.0f, true);
         *c_electric += DeseuElectronic(10.0f, false);
 
-        // --- DEMONSTRAȚIE CLASĂ ȘABLON: Instanțierea 1 (int) ---
-        // Simulăm o eroare legată de ID-ul containerului
-        throw EroareSuprasolicitare<int>("Senzor defect la containerul cu ID-ul", c_plastic->get_id());
+        throw EroareSuprasolicitare<int>("Eroare critica de comunicare la containerul", c_plastic->get_id());
 
     } catch (const EroareSuprasolicitare<int>& eroare) {
         std::stringstream ss;
         ss << eroare;
-        Logger::get_instance().error("[Exceptie Template 1] " + ss.str());
-
-        // --- DEMONSTRAȚIE CLASĂ ȘABLON: Instanțierea 2 (std::string) ---
-        // După ce am demonstrat prima eroare, o aruncăm și o prindem pe a doua legată de locație
+        Logger::get_instance().error(ss.str());
         try {
-             throw EroareSuprasolicitare<std::string>("Trafic blocat in locatia", c_bio->get_locatie());
+            throw EroareSuprasolicitare<std::string>("Trafic blocat pentru masina de gunoi in zona", c_bio->get_locatie());
         } catch (const EroareSuprasolicitare<std::string>& eroare_str) {
-             std::stringstream ss_str;
-             ss_str << eroare_str;
-             Logger::get_instance().error("[Exceptie Template 2] " + ss_str.str());
+            std::stringstream ss_str;
+            ss_str << eroare_str;
+            Logger::get_instance().error(ss_str.str() + "\n");
         }
 
     } catch (const EroareTipDeseu& eroare) {
@@ -166,6 +160,9 @@ int main() {
                                 throw std::invalid_argument("Index invalid!");
                             }
 
+                            if (index < 0 || index > 3) {
+                                throw std::out_of_range("Index container inexistent! Va rugam alegeti intre 0 si 3.");
+                            }
                             // statia_sector_2[index];
 
                             std::cout << "Introduceti cantitatea (kg): ";

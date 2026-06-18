@@ -33,11 +33,15 @@ void ContainerDeseuri::adauga_deseuri(const Deseu& deseu_aruncat) {
         throw EroareTipDeseu("Trapa blocata! Nu puteti arunca [" + tip_primit + "] intr-un container pentru [" + tip_acceptat + "].");
     }
 
-    float spatiu_ocupat = calculeaza_spatiu_ocupat(deseu_aruncat);
+    const float spatiu_ocupat = calculeaza_spatiu_ocupat(deseu_aruncat);
 
-    if (grad_umplere + spatiu_ocupat > capacitate_maxima) {
+
+    if (this->grad_umplere + deseu_aruncat.get_cantitate() > this->capacitate_maxima) {
         throw EroareSuprasolicitare<int>("Containerul a depasit capacitatea maxima!", this->id);
     }
+
+    // Dacă trece de if, abia atunci facem adăugarea propriu-zisă
+    this->grad_umplere += deseu_aruncat.get_cantitate();
 
     grad_umplere += spatiu_ocupat;
     istoric_cantitati.adauga(deseu_aruncat.get_cantitate());
