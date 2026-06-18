@@ -80,6 +80,10 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         src/Logger.cpp
         include/Istoric.h
         include/StrategieSortare.h
+        include/DeseuHartie.h
+        include/ContainerHartie.h
+        src/DeseuHartie.cpp
+        src/ContainerHartie.cpp
 )
 #target_sources(${MAIN_EXECUTABLE_NAME}
 #    PRIVATE

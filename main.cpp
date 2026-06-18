@@ -13,7 +13,8 @@
 #include "Logger.h"
 #include <memory>
 #include <sstream>
-
+#include "include/ContainerHartie.h"
+// #include "include/DeseuHartie.h"
 
 template <typename T>
 T compara_maxim(const T& val1, const T& val2) {
@@ -106,11 +107,12 @@ int main() {
     statia_centrala.colecteaza_tot_gunoiul();
 ///
     StatieSortare statia_sector_2;
+
     statia_sector_2.adaugaContainer(new ContainerPlastic(201, "Aleea Trandafirilor", 300.0f, 90.0f));
     statia_sector_2.adaugaContainer(new ContainerBiodegradabile(202, "Parcul Tineretului", 200.0f, 15.0f, false));
     statia_sector_2.adaugaContainer(new ContainerElectronice(203, "Bulevardul Unirii", 50.0f, true));
     statia_sector_2.adaugaContainer(new ContainerSticla(204, "Centrul Vechi", 100.0f, true));
-
+    statia_sector_2.adaugaContainer(new ContainerHartie(205, "Biblioteca Judeteana", 250.0f));
     // bool sistem_pornit = true;
     int rol = 0;
     while (rol != 3) {
@@ -153,14 +155,14 @@ int main() {
                         break;
                     case 2: {
                         try {
-                            std::cout << "\nIntroduceti ID-ul (Indexul) containerului (0=Plastic, 1=Bio, 2=Electronice, 3=Sticla): ";
+                            std::cout << "\nIntroduceti ID-ul (Indexul) containerului (0=Plastic, 1=Bio, 2=Electronice, 3=Sticla, 4=Hartie): ";
                             int index;
                             if (!(std::cin >> index)) {
                                 curata_cin();
                                 throw std::invalid_argument("Index invalid!");
                             }
 
-                            if (index < 0 || index > 3) {
+                            if (index < 0 || index > 4) {
                                 throw std::out_of_range("Index container inexistent! Va rugam alegeti intre 0 si 3.");
                             }
                             // statia_sector_2[index];
@@ -176,7 +178,7 @@ int main() {
                                 throw EroareCantitateInvalida("Cantitatea introdusa trebuie sa fie strict pozitiva!");
                             }
 
-                            std::cout << "Introduceti tipul deseului (Plastic / Biologic / Electronice / Sticla): ";
+                            std::cout << "Introduceti tipul deseului (Plastic / Biologic / Electronice / Sticla / Hartie): ";
                             std::string tip;
                             std::cin >> tip;
 
