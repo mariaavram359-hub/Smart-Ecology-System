@@ -51,7 +51,7 @@ public:
         return capacitate_maxima;
     }
 
-    std::string get_locatie() const {
+    const std::string& get_locatie() const {
         return locatie;
     }
 

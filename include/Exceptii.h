@@ -18,7 +18,6 @@ class EroareSuprasolicitare;
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const EroareSuprasolicitare<T>& eroare);
 
-// 1. Clasa sablon
 template <typename T>
 class EroareSuprasolicitare : public std::runtime_error {
 private:
