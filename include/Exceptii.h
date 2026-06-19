@@ -24,16 +24,15 @@ private:
     T info_suplimentar;
 
 public:
-    EroareSuprasolicitare(const std::string& msg,const T& info)
+    // Aici preluăm prin const T& (referință constantă)
+    EroareSuprasolicitare(const std::string& msg, const T& info)
         : std::runtime_error(msg), info_suplimentar(info) {}
 
+    // Aici returnăm prin const T&
     const T& get_info_suplimentar() const {
         return info_suplimentar;
     }
-
-    friend std::ostream& operator<< <T>(std::ostream& os, const EroareSuprasolicitare<T>& eroare);
 };
-
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const EroareSuprasolicitare<T>& eroare) {
