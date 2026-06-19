@@ -15,7 +15,7 @@ public:
 class SortareDupaUmplere : public StrategieSortare {
 public:
     void sorteaza(std::vector<ContainerDeseuri*>& containere) const override {
-        std::sort(containere.begin(), containere.end(), [](ContainerDeseuri* a, ContainerDeseuri* b) {
+        std::ranges::sort(containere, [](const ContainerDeseuri* a, const ContainerDeseuri* b) {
             return a->get_grad_umplere() > b->get_grad_umplere();
         });
     }
@@ -24,7 +24,7 @@ public:
 class SortareDupaID : public StrategieSortare {
 public:
     void sorteaza(std::vector<ContainerDeseuri*>& containere) const override {
-        std::sort(containere.begin(), containere.end(), [](ContainerDeseuri* a, ContainerDeseuri* b) {
+        std::ranges::sort(containere, [](const ContainerDeseuri* a, const ContainerDeseuri* b) {
             return a->get_id() < b->get_id();
         });
     }
