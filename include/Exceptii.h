@@ -18,21 +18,22 @@ class EroareSuprasolicitare;
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const EroareSuprasolicitare<T>& eroare);
 
+// 1. Clasa sablon
 template <typename T>
 class EroareSuprasolicitare : public std::runtime_error {
 private:
     T info_suplimentar;
 
 public:
-    // Aici preluăm prin const T& (referință constantă)
+
     EroareSuprasolicitare(const std::string& msg, const T& info)
         : std::runtime_error(msg), info_suplimentar(info) {}
 
-    // Aici returnăm prin const T&
     const T& get_info_suplimentar() const {
         return info_suplimentar;
     }
 };
+
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const EroareSuprasolicitare<T>& eroare) {
