@@ -14,6 +14,7 @@
 #include <memory>
 #include <sstream>
 #include "include/ContainerHartie.h"
+#include "include/Istoric.h"
 // #include "include/DeseuHartie.h"
 
 template <typename T>
@@ -54,6 +55,9 @@ void curata_cin() {
 }
 
 int main() {
+    Istoric<std::string> istoric_sesiune;
+
+    istoric_sesiune.adauga("Sistemul Smart Ecology a fost pornit.");
     std::cout << "=== PORNIRE SISTEM SMART DE GESTIONARE A DESEURILOR ===\n\n";
 
     StatieSortare statia_centrala;
@@ -83,6 +87,10 @@ int main() {
         *c_plastic += DeseuPlastic(50.0f, TipPlastic::PET);
         *c_bio += DeseuBiologic(100.0f, true);
         *c_electric += DeseuElectronic(10.0f, false);
+        auto* c_hartie_test = new ContainerHartie(105, "Librarie", 300.0f);
+        *c_hartie_test += DeseuHartie(20.0f, CalitateHartie::CARTON);
+        c_hartie_test->compacteaza_carton();
+        Logger::get_instance().info("Cartonul din containerul de la Librarie a fost compactat cu succes!");
 
         throw EroareSuprasolicitare<int>("Eroare critica de comunicare la containerul", c_plastic->get_id());
 
@@ -131,6 +139,10 @@ int main() {
         }
 
         if (rol == 3) {
+            istoric_sesiune.adauga("Sistemul se inchide. Sesiune terminata.");
+
+            Logger::get_instance().info("Sistemul s-a oprit. Operatiuni in istoric: " +
+                                        std::to_string(istoric_sesiune.dimensiune()));
             break;
         }
 
@@ -283,7 +295,11 @@ int main() {
         }
     }
 
+    istoric_sesiune.adauga("Sistemul se inchide. Sesiune terminata.");
 
-    std::cout << "\n[SISTEM OPRIT] Va multumim ca pastrati orasul curat!\n";
+    Logger::get_instance().info("Sistemul s-a oprit. Operatiuni in istoric: " +
+                                std::to_string(istoric_sesiune.dimensiune()));
+
     return 0;
+
 }

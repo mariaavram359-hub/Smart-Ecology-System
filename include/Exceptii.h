@@ -24,10 +24,10 @@ private:
     T info_suplimentar;
 
 public:
-    EroareSuprasolicitare(const std::string& msg, T info)
+    EroareSuprasolicitare(const std::string& msg,const T& info)
         : std::runtime_error(msg), info_suplimentar(info) {}
 
-    T get_info_suplimentar() const {
+    const T& get_info_suplimentar() const {
         return info_suplimentar;
     }
 
@@ -37,7 +37,7 @@ public:
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const EroareSuprasolicitare<T>& eroare) {
-    os << eroare.what() << " : " << eroare.info_suplimentar;
+    os << eroare.what() << " : " << eroare.get_info_suplimentar();
     return os;
 }
 
