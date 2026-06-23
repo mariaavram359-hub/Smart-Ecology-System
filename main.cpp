@@ -15,6 +15,7 @@
 #include <sstream>
 #include "include/ContainerHartie.h"
 #include "include/Istoric.h"
+#include <functional>
 // #include "include/DeseuHartie.h"
 
 template <typename T>
@@ -55,7 +56,9 @@ void curata_cin() {
 }
 
 int main() {
+    // std::cout << std::hash<std::string>{}("admin123");3288171798096025883
     Istoric<std::string> istoric_sesiune;
+
 
     istoric_sesiune.adauga("Sistemul Smart Ecology a fost pornit.");
     std::cout << "=== PORNIRE SISTEM SMART DE GESTIONARE A DESEURILOR ===\n\n";
@@ -216,9 +219,15 @@ int main() {
             }
         }
         else if (rol == 2) {
-            if (!autentifica_admin()) {
-                std::cout << "[Sistem] Acces refuzat la interfata de administrator.\n";
-                continue;
+            constexpr size_t HASH_PAROLA_ADMIN = 3288171798096025883;
+            std::string parola_introdusa;
+            std::cout << "Introduceti parola de admin: ";
+            std::cin >> parola_introdusa;
+
+            if (std::hash<std::string>{}(parola_introdusa) == HASH_PAROLA_ADMIN) {
+                Logger::get_instance().success("Autentificare reusita!");
+            } else {
+                Logger::get_instance().error("Parola gresita sau acces respins!");
             }
 
             bool in_meniu_admin = true;

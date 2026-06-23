@@ -13,6 +13,8 @@
 
 - [ ] Eco-Protocol: Implementează un motor de calcul pentru a simula consecințele aruncării deșeurilor, mapând fiecare material introdus (Plastic, Sticlă, Biologic, Electronice, Hartie) pe rapoarte ecologice detaliate ce evaluează instantaneu amprenta de carbon generată, anii de descompunere și impactul asupra sustenabilității globale.
 
+#### Informații de testare:
+Pentru accesul la funcțiile de administrare din meniu, folosiți parola: _admin123_
 ### Folosiți template-ul corespunzător grupei voastre!
 
 | Laborant  | Link template                                |
