@@ -24,7 +24,8 @@ T compara_maxim(const T& val1, const T& val2) {
 }
 
 bool autentifica_admin() {
-    const std::string parola_corecta = "admin123";
+    constexpr size_t HASH_PAROLA_CORECTA = 3288171798096025883;
+
     std::string parola_introdusa;
     int incercari = 3;
 
@@ -32,14 +33,15 @@ bool autentifica_admin() {
         std::cout << "Introduceti parola de administrator: ";
         std::cin >> parola_introdusa;
 
-        if (parola_introdusa == parola_corecta) {
+        if (std::hash<std::string>{}(parola_introdusa) == HASH_PAROLA_CORECTA) {
             Logger::get_instance().success("Autentificare reusita!");
             return true;
         }
 
         incercari--;
-        if (incercari > 0)
+        if (incercari > 0) {
             Logger::get_instance().warning("Parola gresita! Mai aveti " + std::to_string(incercari) + " incercari.");
+        }
     }
 
     Logger::get_instance().error("Prea multe incercari gresite. Acces blocat!");
@@ -58,7 +60,6 @@ void curata_cin() {
 int main() {
     // std::cout << std::hash<std::string>{}("admin123");3288171798096025883
     Istoric<std::string> istoric_sesiune;
-
 
     istoric_sesiune.adauga("Sistemul Smart Ecology a fost pornit.");
     std::cout << "=== PORNIRE SISTEM SMART DE GESTIONARE A DESEURILOR ===\n\n";
@@ -219,15 +220,9 @@ int main() {
             }
         }
         else if (rol == 2) {
-            constexpr size_t HASH_PAROLA_ADMIN = 3288171798096025883;
-            std::string parola_introdusa;
-            std::cout << "Introduceti parola de admin: ";
-            std::cin >> parola_introdusa;
-
-            if (std::hash<std::string>{}(parola_introdusa) == HASH_PAROLA_ADMIN) {
-                Logger::get_instance().success("Autentificare reusita!");
-            } else {
-                Logger::get_instance().error("Parola gresita sau acces respins!");
+            if (!autentifica_admin()) {
+                std::cout << "[Sistem] Acces refuzat la interfata de administrator.\n";
+                continue;
             }
 
             bool in_meniu_admin = true;
