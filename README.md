@@ -3,15 +3,15 @@
 
 Într-o lume în care încălzirea globală devine o problemă din ce în ce mai gravă, o aplicație precum Smart Ecology System vine în ajutor! Aplicația C++, de tip simulator administrativ IoT, transpune rigoarea și protocoalele de mediu într-o platformă de gestiune a resurselor urbane. Proiectul funcționează ca un nucleu digital de comandă pentru o stație centrală, coordonând interacțiunea dintre infrastructura de colectare, flota de containere inteligente și operatorii umani.
 
-Ce face proiectul:
+### Ce face proiectul:
 
-[]Gestiunea Flotei: Administrează rețeaua de containere în timp real, monitorizând parametri critici (capacitatea de umplere, starea de funcționare și gradul de saturație pe sectoare) prin mecanisme avansate.
+- [ ] Gestiunea Flotei: Administrează rețeaua de containere în timp real, monitorizând parametri critici (capacitatea de umplere, starea de funcționare și gradul de saturație pe sectoare) prin mecanisme avansate.
 
-[]Motor de Validare (Eco-Factory Engine): Verifică strict compatibilitatea materialelor cu infrastructura destinație (de exemplu, sistemul blochează trapa dacă se încearcă introducerea deșeurilor electronice în containerele pentru biomasă).
+- [ ] Motor de Validare (Eco-Factory Engine): Verifică strict compatibilitatea materialelor cu infrastructura destinație (de exemplu, sistemul blochează trapa dacă se încearcă introducerea deșeurilor electronice în containerele pentru biomasă).
 
-[]Sistem de Colectare Automată: Procesează constant metricile de volum și declanșează autonom mașinile de intervenție pentru a goli containerele și a recalcula balanța stației imediat ce senzorii detectează depășirea pragurilor critice setate pentru fiecare material.
+- [ ] Sistem de Colectare Automată: Procesează constant metricile de volum și declanșează autonom mașinile de intervenție pentru a goli containerele și a recalcula balanța stației imediat ce senzorii detectează depășirea pragurilor critice setate pentru fiecare material.
 
-[]Eco-Protocol: Implementează un motor de calcul pentru a simula consecințele aruncării deșeurilor, mapând fiecare material introdus (Plastic, Sticlă, Biologic, Electronice) pe rapoarte ecologice detaliate ce evaluează instantaneu amprenta de carbon generată, anii de descompunere și impactul asupra sustenabilității globale.
+- [ ] Eco-Protocol: Implementează un motor de calcul pentru a simula consecințele aruncării deșeurilor, mapând fiecare material introdus (Plastic, Sticlă, Biologic, Electronice, Hartie) pe rapoarte ecologice detaliate ce evaluează instantaneu amprenta de carbon generată, anii de descompunere și impactul asupra sustenabilității globale.
 
 ### Folosiți template-ul corespunzător grupei voastre!
 

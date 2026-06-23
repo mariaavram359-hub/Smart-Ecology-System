@@ -78,16 +78,15 @@ void StatieSortare::colectare_automata() const {
     bool s_a_colectat_ceva = false;
 
     for (auto* container : flota_containere) {
-        // Dacă s-a atins sau depășit pragul setat
+
         if (container->get_grad_umplere() >= container->get_prag_colectare() && container->get_grad_umplere() > 0) {
 
-            // Afișăm un mesaj frumos cu albastru/verde prin Logger înainte să îl golim
             Logger::get_instance().info("[AUTO-COLECTARE] Masina de gunoi a golit containerul ID: " +
                                         std::to_string(container->get_id()) +
                                         " (Avea " + std::to_string(container->get_grad_umplere()) + " kg).");
 
-            // Aici apelezi metoda ta de golire (sau set_grad_umplere(0))
-            container->goleste(); // sau container->set_grad_umplere(0.0f);
+
+            container->goleste();
 
             s_a_colectat_ceva = true;
         }
