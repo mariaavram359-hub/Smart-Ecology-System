@@ -110,10 +110,10 @@ int main() {
             Logger::get_instance().error(ss_str.str() + "\n");
         }
 
-    } catch (const EroareTipDeseu& eroare) {
-        Logger::get_instance().error(eroare.what());
+    } catch (const ExceptieSmartEcology& eroare) {
+        Logger::get_instance().error(std::string("Eroare Sistem Smart: ") + eroare.what());
     } catch (const std::exception& eroare) {
-        Logger::get_instance().error(eroare.what());
+        Logger::get_instance().error(std::string("Eroare Generala: ") + eroare.what());
     }
 
     statia_centrala.colecteaza_tot_gunoiul();
@@ -179,7 +179,7 @@ int main() {
                             }
 
                             if (index < 0 || index > 4) {
-                                throw std::out_of_range("Index container inexistent! Va rugam alegeti intre 0 si 3.");
+                                throw std::out_of_range("Index container inexistent! Va rugam alegeti intre 0 si 4.");
                             }
                             // statia_sector_2[index];
 
@@ -205,6 +205,8 @@ int main() {
 
                             statia_sector_2.colectare_automata();
 
+                        } catch (const ExceptieSmartEcology& e) {
+                            Logger::get_instance().error("EROARE ECO-SISTEM: " + std::string(e.what()));
                         } catch (const std::exception& e) {
                             Logger::get_instance().error("ACTIUNE RESPINSA: " + std::string(e.what()));
                         }
